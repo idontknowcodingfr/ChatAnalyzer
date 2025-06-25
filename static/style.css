@@ -1,0 +1,204 @@
+body.result-page {
+    background-image: url("/static/images/couple.jpg");
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    animation: bgSlideUp 30s linear infinite alternate;
+
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+@keyframes bgSlideUp {
+    0% { background-position: center bottom; }
+    100% { background-position: center top; }
+}
+
+/* Dark overlay */
+body.result-page::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+/* Remove slideshow layers */
+body.result-page::after,
+body.result-page .bg-third {
+    display: none !important;
+}
+
+/* Your Existing Styles (unchanged) */
+.container {
+    padding: 30px;
+    background-color: transparent;
+    max-width: 900px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeInUp 1.2s ease-out 0.3s forwards;
+}
+
+.container *:nth-child(1) {
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+.container *:nth-child(2) {
+    animation: fadeInUp 1s ease-out 0.9s forwards;
+}
+.container *:nth-child(3) {
+    animation: fadeInUp 1s ease-out 1.2s forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1, h2, h3, p, label {
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background-color: #fff8dc;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn.active {
+    background-color: #f48fb1;
+    color: white;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.chart-box {
+    position: relative;
+    width: 300px;
+    margin: 0 auto 20px;
+}
+
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    font-weight: bold;
+    color: #f06292;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.legend {
+    font-size: 16px;
+    margin-top: 10px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.back {
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 16px;
+    color: #90caf9;
+    text-decoration: none;
+}
+
+.split {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.person-block {
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    margin: 10px;
+    color: white;
+    backdrop-filter: blur(2px);
+}
+
+.heart-score {
+    font-size: 32px;
+    color: #ff80ab;
+    align-self: center;
+    padding: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 60%;
+    margin-bottom: 10px;
+}
+
+form button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #f48fb1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.search-results {
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.score-description {
+    margin-top: -10px;
+    color: #eee;
+    font-style: italic;
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}

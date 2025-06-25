@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="result-page">
+    <div class="container">
+        <h1>💬 Chat Analysis Report</h1>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'overview')">🟢 Overview</button>
+            <button class="tab-btn" onclick="openTab(event, 'breakdown')">📊 Breakdown</button>
+            <button class="tab-btn" onclick="openTab(event, 'individual')">👥 Individual Insights</button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <div class="chart-box">
+                <canvas id="scoreChart" width="300" height="300"></canvas>
+                <div class="center-text">{{ love_score }}%</div>
+            </div>
+            <p class="score-description">Love Score (Average of Initiation, Effort, Reply Time)</p>
+        </div>
+
+        <!-- BREAKDOWN TAB -->
+        <div id="breakdown" class="tab-content">
+            <canvas id="barChart" width="400" height="300"></canvas>
+        </div>
+
+        <!-- INDIVIDUAL TAB -->
+        <div id="individual" class="tab-content">
+            <div class="split">
+                <div class="person-block">
+                    <h3>{{ person1 }}</h3>
+                    <p>🟡 Initiation: {{ scores[person1].initiation }}%</p>
+                    <p>🧡 Effort: {{ scores[person1].effort }}%</p>
+                    <p>⏱️ Reply Time: {{ scores[person1].reply }}%</p>
+                    <p>💬 Most Used Word: {{ scores[person1].most_used }}</p>
+                    <p>❤️ Times said "love": {{ scores[person1].love_count }}</p>
+                    <p>🙏 Times said "sorry": {{ scores[person1].sorry_count }}</p>
+                </div>
+                <div class="heart-score">❤️ {{ love_score }}%</div>
+                <div class="person-block">
+                    <h3>{{ person2 }}</h3>
+                    <p>🟡 Initiation: {{ scores[person2].initiation }}%</p>
+                    <p>🧡 Effort: {{ scores[person2].effort }}%</p>
+                    <p>⏱️ Reply Time: {{ scores[person2].reply }}%</p>
+                    <p>💬 Most Used Word: {{ scores[person2].most_used }}</p>
+                    <p>❤️ Times said "love": {{ scores[person2].love_count }}</p>
+                    <p>🙏 Times said "sorry": {{ scores[person2].sorry_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <a class="back" href="/">← Try Another Chat</a>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        function openTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            contents.forEach(c => c.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        const doughnut = new Chart(document.getElementById('scoreChart'), {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        {{ scores[person1].initiation }},
+                        {{ scores[person1].effort }},
+                        {{ scores[person1].reply }}
+                    ],
+                    backgroundColor: ['#FFF176', '#F48FB1', '#90CAF9'],
+                    cutout: '70%',
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                responsive: false
+            }
+        });
+
+        const bar = new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Initiation', 'Effort', 'Reply Time'],
+                datasets: [
+                    {
+                        label: '{{ person1 }}',
+                        data: [
+                            {{ scores[person1].initiation }},
+                            {{ scores[person1].effort }},
+                            {{ scores[person1].reply }}
+                        ],
+                        backgroundColor: '#FFF176'
+                    },
+                    {
+                        label: '{{ person2 }}',
+                        data: [
+                            {{ scores[person2].initiation }},
+                            {{ scores[person2].effort }},
+                            {{ scores[person2].reply }}
+                        ],
+                        backgroundColor: '#90CAF9'
+                    }
+                ]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
